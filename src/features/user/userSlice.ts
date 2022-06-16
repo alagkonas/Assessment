@@ -2,9 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { userInitialStateTypes, ApiUsersTypes } from '../../@types';
 
 const authUser: string = JSON.parse(localStorage.getItem('authUser')!);
-const apiUsers: ApiUsersTypes[] = JSON.parse(
-  localStorage.getItem('apihUsers')!
-);
+const apiUsers: ApiUsersTypes[] = JSON.parse(localStorage.getItem('apiUsers')!);
 
 const initialState: userInitialStateTypes = {
   authUser: authUser ? authUser : null,

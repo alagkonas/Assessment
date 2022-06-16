@@ -1,5 +1,11 @@
+import PostList from '../../components/PostList';
+
 const Home: React.FC = () => {
-  return <div>Home</div>;
+  return (
+    <div>
+      <PostList />
+    </div>
+  );
 };
 
 export default Home;
