@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -8,6 +9,8 @@ import { boxStyles, textColorStyles, toolbarStyles } from './styles';
 import './Navbar.css';
 
 const Navbar: React.FC = () => {
+  const { user } = useAppSelector((state) => state.user);
+
   return (
     <div id='navbar-div'>
       <Box sx={boxStyles}>
@@ -18,12 +21,17 @@ const Navbar: React.FC = () => {
                 Home
               </Typography>
             </Link>
-            <Link to='/sign_in'>
+            {user ? (
               <Button color='inherit' sx={textColorStyles}>
-                Login
+                Logout
               </Button>
-            </Link>
-            {/* <Button color='inherit'>Logout</Button> */}
+            ) : (
+              <Link to='/sign_in'>
+                <Button color='inherit' sx={textColorStyles}>
+                  Login
+                </Button>
+              </Link>
+            )}
           </Toolbar>
         </AppBar>
       </Box>
