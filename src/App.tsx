@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import SignIn from './pages/SignIn';
 import Home from './pages/Home';
 import Navbar from './components/Navbar';
@@ -22,6 +23,7 @@ function App() {
         </div>
       </Router>
       <ToastContainer theme='light' />
+      <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
     </>
   );
 }
