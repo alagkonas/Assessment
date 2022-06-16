@@ -54,7 +54,7 @@ const SignIn: React.FC = () => {
     }));
   };
 
-  const onClick = (): void => {
+  const onUserLogin = (): void => {
     dispatch(loginUser(email));
   };
 
@@ -87,7 +87,7 @@ const SignIn: React.FC = () => {
               value={password}
             />
           </CardContent>
-          <Button onClick={onClick} sx={buttonStyles} variant='contained'>
+          <Button onClick={onUserLogin} sx={buttonStyles} variant='contained'>
             Sign In
           </Button>
         </Box>
