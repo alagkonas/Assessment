@@ -1,4 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { loginUser, reset } from '../../features/user/userSlice';
+import { toast } from 'react-toastify';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -23,15 +27,38 @@ const initialState: FormDataTypes = {
 
 const SignIn: React.FC = () => {
   const [formData, setFormData] = useState<FormDataTypes>(initialState);
+  const { isLoading, isSuccess, isError } = useAppSelector(
+    (state) => state.user
+  );
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate('/');
+      toast.success('Login Successful');
+      dispatch(reset());
+    }
+    if (isError) {
+      toast.error(isError);
+    }
+    // eslint-disable-next-line
+  }, [isSuccess, isError]);
 
   const { email, password } = formData;
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setFormData((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
     }));
   };
+
+  const onClick = (): void => {
+    dispatch(loginUser(email));
+  };
+
+  if (isLoading) return <p>Loading...</p>;
 
   return (
     <div id='form-div'>
@@ -60,7 +87,7 @@ const SignIn: React.FC = () => {
               value={password}
             />
           </CardContent>
-          <Button sx={buttonStyles} variant='contained'>
+          <Button onClick={onClick} sx={buttonStyles} variant='contained'>
             Sign In
           </Button>
         </Box>
