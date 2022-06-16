@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { loginUser, reset } from '../../features/user/userSlice';
+import { loginUser, getUsers, reset } from '../../features/user/userSlice';
+import { useFetchUsers } from '../../hooks/fetchUsers';
 import { toast } from 'react-toastify';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -30,6 +31,7 @@ const SignIn: React.FC = () => {
   const { isLoading, isSuccess, isError } = useAppSelector(
     (state) => state.user
   );
+  const { data } = useFetchUsers();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -56,6 +58,7 @@ const SignIn: React.FC = () => {
 
   const onUserLogin = (): void => {
     dispatch(loginUser(email));
+    dispatch(getUsers(data));
   };
 
   if (isLoading) return <p>Loading...</p>;

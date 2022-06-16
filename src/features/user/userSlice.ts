@@ -1,10 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { userInitialStateTypes } from '../../@types';
+import { userInitialStateTypes, ApiUsersTypes } from '../../@types';
 
-const user: string = JSON.parse(localStorage.getItem('authUser')!);
+const authUser: string = JSON.parse(localStorage.getItem('authUser')!);
+const apiUsers: ApiUsersTypes[] = JSON.parse(
+  localStorage.getItem('apihUsers')!
+);
 
 const initialState: userInitialStateTypes = {
-  user: user ? user : null,
+  authUser: authUser ? authUser : null,
+  users: apiUsers ? apiUsers : null,
   isLoading: false,
   isSuccess: false,
   isError: false,
@@ -17,6 +21,19 @@ export const loginUser = createAsyncThunk(
     try {
       localStorage.setItem('authUser', JSON.stringify(userData));
       return userData;
+    } catch (error: any) {
+      const message = error.message.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const getUsers = createAsyncThunk(
+  'users/getAll',
+  (usersData: ApiUsersTypes[], thunkAPI) => {
+    try {
+      localStorage.setItem('apiUsers', JSON.stringify(usersData));
+      return usersData;
     } catch (error: any) {
       const message = error.message.toString();
       return thunkAPI.rejectWithValue(message);
@@ -47,13 +64,27 @@ export const userSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.user = action.payload;
+        state.authUser = action.payload;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-        state.user = null;
+        state.authUser = null;
+      })
+      .addCase(getUsers.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getUsers.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.users = action.payload;
+      })
+      .addCase(getUsers.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.users = null;
       })
       .addCase(logoutUser.pending, (state) => {
         state.isLoading = true;
@@ -61,13 +92,13 @@ export const userSlice = createSlice({
       .addCase(logoutUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.user = null;
+        state.authUser = null;
       })
       .addCase(logoutUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-        state.user = null;
+        state.authUser = null;
       });
   },
 });

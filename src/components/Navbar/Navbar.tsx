@@ -12,12 +12,12 @@ import { boxStyles, textColorStyles, toolbarStyles } from './styles';
 import './Navbar.css';
 
 const Navbar: React.FC = () => {
-  const { user, isSuccess } = useAppSelector((state) => state.user);
+  const { authUser, isSuccess } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!user && isSuccess) {
+    if (!authUser && isSuccess) {
       navigate('/sign_in');
       toast.success('Logout Successful');
       dispatch(reset());
@@ -39,7 +39,7 @@ const Navbar: React.FC = () => {
                 Home
               </Typography>
             </Link>
-            {user ? (
+            {authUser ? (
               <Button
                 onClick={onUserLogout}
                 color='inherit'
