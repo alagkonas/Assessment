@@ -16,6 +16,7 @@ const PostListItem: React.FC<TodoType> = ({ completed, title, userId }) => {
       <Card sx={{ maxWidth: 300, height: 350, alignContent: 'center' }}>
         <CardContent sx={{ alignContent: 'center' }}>
           <Typography
+            data-testid='item-1'
             sx={{ alignContent: 'center', fontWeight: 600 }}
             gutterBottom
             variant='h5'

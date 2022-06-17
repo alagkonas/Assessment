@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 import axios from 'axios';
 import { TODOS_ENDPOINT } from '../../config';
 
-const fetchTodos = async () => {
+export const fetchTodos = async () => {
   const results = await axios.get(TODOS_ENDPOINT);
   return results;
 };

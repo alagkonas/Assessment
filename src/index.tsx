@@ -12,10 +12,10 @@ const root = createRoot(container);
 
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={client}>
-      <Provider store={store}>
+    <Provider store={store}>
+      <QueryClientProvider client={client}>
         <App />
-      </Provider>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </Provider>
   </React.StrictMode>
 );

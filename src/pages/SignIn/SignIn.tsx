@@ -58,8 +58,12 @@ const SignIn: React.FC = () => {
   };
 
   const onUserLogin = (): void => {
+    if (formData === initialState) {
+      throw toast.error('Please add all fields');
+    }
     dispatch(loginUser(email));
     dispatch(getUsers(data));
+    setFormData(initialState);
   };
 
   if (isLoading) return <Spinner />;
@@ -80,6 +84,7 @@ const SignIn: React.FC = () => {
               placeholder='johndoe@gmail.com'
               type='email'
               value={email}
+              required
             />
             <TextField
               onChange={onChange}
@@ -89,6 +94,7 @@ const SignIn: React.FC = () => {
               placeholder='password'
               type='password'
               value={password}
+              required
             />
           </CardContent>
           <Button onClick={onUserLogin} sx={buttonStyles} variant='contained'>

@@ -35,7 +35,12 @@ const FilterBar: React.FC = () => {
         options={users!}
         sx={{ width: 500 }}
         renderInput={(params) => (
-          <TextField {...params} id='id' label='Filter by users' />
+          <TextField
+            {...params}
+            id='id'
+            label='Filter by users'
+            data-testid='CloseIcon'
+          />
         )}
       />
     </div>

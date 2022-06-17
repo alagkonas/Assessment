@@ -2,7 +2,7 @@ import { useQuery } from 'react-query';
 import axios from 'axios';
 import { USERS_ENDPOINT } from '../../config';
 
-const fetchUsers = async () => {
+export const fetchUsers = async () => {
   const results = await axios.get(USERS_ENDPOINT);
   return results;
 };

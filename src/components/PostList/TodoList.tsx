@@ -33,7 +33,7 @@ const TodoList: React.FC = () => {
         justifyContent='space-evenly'
         alignItems='center'
       >
-        {todos?.map((todo: TodoType) => {
+        {todos?.map((todo: TodoType, index) => {
           return (
             <Grid id='item-grid' item xs={2} sm={4} md={4} key={todo.id}>
               <TodoListItem
