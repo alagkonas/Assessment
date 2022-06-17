@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks';
 import { filterByUser } from '../../features/user/userSlice';
+import Spinner from '../Spinner';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { UsersType } from '../../@types';
@@ -8,7 +9,7 @@ import './FilterBar.css';
 
 const FilterBar: React.FC = () => {
   const [value, setValue] = useState<UsersType | null>(null);
-  const { users: apiUsers } = useAppSelector((state) => state.user);
+  const { users: apiUsers, isLoading } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
   const users: UsersType[] | undefined = apiUsers?.map((user) => {
@@ -17,6 +18,8 @@ const FilterBar: React.FC = () => {
       id: user.id,
     };
   });
+
+  if (isLoading) return <Spinner />;
 
   return (
     <div id='filterbar-div'>

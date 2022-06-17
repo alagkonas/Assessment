@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import { useAppSelector } from '../../app/hooks';
 import { useFetchTodos } from '../../hooks/fetchTodos';
 import TodoListItem from './TodoListItem';
+import Spinner from '../Spinner';
 import Grid from '@mui/material/Grid';
 import { TodoType } from '../../@types';
 import './TodoList.css';
@@ -10,7 +10,7 @@ const TodoList: React.FC = () => {
   const { data: apiTodos, isLoading: todosLoading } = useFetchTodos();
   const { filteredUser, isLoading } = useAppSelector((state) => state.user);
 
-  let todos = apiTodos;
+  let todos: TodoType[] = apiTodos;
 
   if (filteredUser) {
     todos = apiTodos.filter((todo: TodoType) => {
@@ -21,7 +21,7 @@ const TodoList: React.FC = () => {
     todos = apiTodos;
   }
 
-  if (todosLoading) return <p>Loading...</p>;
+  if (todosLoading || isLoading) return <Spinner />;
 
   return (
     <div id='items-grid'>

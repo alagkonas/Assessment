@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { loginUser, getUsers, reset } from '../../features/user/userSlice';
 import { useFetchUsers } from '../../hooks/fetchUsers';
+import Spinner from '../../components/Spinner';
 import { toast } from 'react-toastify';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -61,7 +62,7 @@ const SignIn: React.FC = () => {
     dispatch(getUsers(data));
   };
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <Spinner />;
 
   return (
     <div id='form-div'>

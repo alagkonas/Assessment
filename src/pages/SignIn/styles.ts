@@ -1,7 +1,7 @@
 export const cardStyles = {
   display: 'flex',
   height: '70%',
-  width: '65%',
+  width: '50%',
   marginInline: 'auto',
   justifyContent: 'center',
 };
