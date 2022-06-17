@@ -1,3 +1,5 @@
+import { UsersType } from './FilterBar';
+
 type CompanyTypes = {
   name: string;
   catchPhrase: string;
@@ -18,19 +20,20 @@ type AddressTypes = {
 };
 
 export type ApiUsersTypes = {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  address: AddressTypes;
-  phone: '1-770-736-8031 x56442';
-  website: 'hildegard.org';
-  company: CompanyTypes;
+  id?: number;
+  name?: string;
+  username?: string;
+  email?: string;
+  address?: AddressTypes;
+  phone?: '1-770-736-8031 x56442';
+  website?: 'hildegard.org';
+  company?: CompanyTypes;
 };
 
 export type userInitialStateTypes = {
   authUser: string | null;
   users: ApiUsersTypes[] | null;
+  filteredUser: UsersType | null;
   isError: boolean;
   isSuccess: boolean;
   isLoading: boolean;

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { userInitialStateTypes, ApiUsersTypes } from '../../@types';
+import { userInitialStateTypes, ApiUsersTypes, UsersType } from '../../@types';
 
 const authUser: string = JSON.parse(localStorage.getItem('authUser')!);
 const apiUsers: ApiUsersTypes[] = JSON.parse(localStorage.getItem('apiUsers')!);
@@ -7,6 +7,7 @@ const apiUsers: ApiUsersTypes[] = JSON.parse(localStorage.getItem('apiUsers')!);
 const initialState: userInitialStateTypes = {
   authUser: authUser ? authUser : null,
   users: apiUsers ? apiUsers : null,
+  filteredUser: null,
   isLoading: false,
   isSuccess: false,
   isError: false,
@@ -32,6 +33,18 @@ export const getUsers = createAsyncThunk(
     try {
       localStorage.setItem('apiUsers', JSON.stringify(usersData));
       return usersData;
+    } catch (error: any) {
+      const message = error.message.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const filterByUser = createAsyncThunk(
+  'user/filteredUser',
+  (userData: UsersType, thunkAPI) => {
+    try {
+      return userData;
     } catch (error: any) {
       const message = error.message.toString();
       return thunkAPI.rejectWithValue(message);
@@ -83,6 +96,20 @@ export const userSlice = createSlice({
         state.isError = true;
         state.message = action.payload;
         state.users = null;
+      })
+      .addCase(filterByUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(filterByUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.filteredUser = action.payload;
+      })
+      .addCase(filterByUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+        state.filteredUser = null;
       })
       .addCase(logoutUser.pending, (state) => {
         state.isLoading = true;
