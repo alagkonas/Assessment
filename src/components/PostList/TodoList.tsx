@@ -36,7 +36,11 @@ const TodoList: React.FC = () => {
         {todos?.map((todo: TodoType) => {
           return (
             <Grid id='item-grid' item xs={2} sm={4} md={4} key={todo.id}>
-              <TodoListItem completed={todo.completed} title={todo.title} />
+              <TodoListItem
+                userId={todo.userId}
+                completed={todo.completed}
+                title={todo.title}
+              />
             </Grid>
           );
         })}

@@ -4,6 +4,7 @@ import { filterByUser } from '../../features/user/userSlice';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { UsersType } from '../../@types';
+import './FilterBar.css';
 
 const FilterBar: React.FC = () => {
   const [value, setValue] = useState<UsersType | null>(null);
@@ -18,7 +19,7 @@ const FilterBar: React.FC = () => {
   });
 
   return (
-    <div>
+    <div id='filterbar-div'>
       <Autocomplete
         onChange={(e: any, newValue: UsersType | null) => {
           setValue(newValue);
@@ -29,9 +30,9 @@ const FilterBar: React.FC = () => {
         value={value}
         id='combo-box-demo'
         options={users!}
-        sx={{ width: 300 }}
+        sx={{ width: 500 }}
         renderInput={(params) => (
-          <TextField {...params} id='id' label='Movie' />
+          <TextField {...params} id='id' label='Filter by users' />
         )}
       />
     </div>
