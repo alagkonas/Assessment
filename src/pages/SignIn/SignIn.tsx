@@ -39,7 +39,6 @@ const SignIn: React.FC = () => {
   useEffect(() => {
     if (isSuccess) {
       navigate('/');
-      toast.success('Login Successful');
       dispatch(reset());
     }
     if (isError) {
@@ -95,6 +94,7 @@ const SignIn: React.FC = () => {
               type='password'
               value={password}
               required
+              data-testid='password'
             />
           </CardContent>
           <Button onClick={onUserLogin} sx={buttonStyles} variant='contained'>
