@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { logoutUser, reset } from '../../features/user/userSlice';
-import { toast } from 'react-toastify';
+import Spinner from '../Spinner';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -12,14 +12,15 @@ import { boxStyles, textColorStyles, toolbarStyles } from './styles';
 import './Navbar.css';
 
 const Navbar: React.FC = () => {
-  const { authUser, isSuccess } = useAppSelector((state) => state.user);
+  const { authUser, isSuccess, isLoading } = useAppSelector(
+    (state) => state.user
+  );
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (!authUser && isSuccess) {
       navigate('/sign_in');
-      toast.success('Logout Successful');
       dispatch(reset());
     }
     // eslint-disable-next-line
@@ -28,6 +29,8 @@ const Navbar: React.FC = () => {
   const onUserLogout = () => {
     dispatch(logoutUser());
   };
+
+  if (isLoading) return <Spinner />;
 
   return (
     <div id='navbar-div'>

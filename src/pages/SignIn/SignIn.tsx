@@ -57,12 +57,12 @@ const SignIn: React.FC = () => {
   };
 
   const onUserLogin = (): void => {
-    if (formData === initialState) {
+    if (email === '' || password === '') {
+      setFormData(initialState);
       throw toast.error('Please add all fields');
     }
     dispatch(loginUser(email));
     dispatch(getUsers(data));
-    setFormData(initialState);
   };
 
   if (isLoading) return <Spinner />;

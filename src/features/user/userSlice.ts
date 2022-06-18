@@ -54,6 +54,7 @@ export const filterByUser = createAsyncThunk(
 
 export const logoutUser = createAsyncThunk('user/logout', () => {
   localStorage.removeItem('authUser');
+  localStorage.removeItem('apiUsers');
 });
 
 export const userSlice = createSlice({
@@ -118,12 +119,13 @@ export const userSlice = createSlice({
         state.isLoading = false;
         state.isSuccess = true;
         state.authUser = null;
+        state.users = null;
       })
       .addCase(logoutUser.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
-        state.authUser = null;
+        state.users = null;
       });
   },
 });
