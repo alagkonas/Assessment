@@ -17,19 +17,19 @@ Runs only the unit and integration tests that were written using react-testing-l
 
 ### Run the cypress end to end test
 
-- Using the Cypress GUI.
+- Using the Cypress GUI.\
   Make sure you are running in development mode the application, using `npm start`.\
   Open a Git Bash terminal inside VS Code.\
   Make sure you are in the root directory. Then execute the command `./node_modules/.bin/cypress open` .\
   The Cypress desktop app will open. Choose E2E Testing. Then choose to run the test in Electron.\
   A new window will popup. Choose the Specs option from the sidebar.\
-  Then select the `spec.cy.ts` file and watch the automated test run.\
+  Then select the `spec.cy.ts` file and watch the automated test run.
 
-- Using the VS Code terminal.
+- Using the VS Code terminal.\
   Make sure you are running in development mode the application, using `npm start`.\
   Open a Git Bash terminal inside VS Code.\
   Make sure you are in the root directory. Then execute the command `npx cypress run`.\
-  Then, the test will take place in your terminal.\
+  Then, the test will take place in your terminal.
 
 ### `npm run build`
 
